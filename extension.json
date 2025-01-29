@@ -10,10 +10,10 @@
 		"MediaWiki": ">= 1.43.0"
 	},
 	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\CustomTweaks\\": "includes/"
+		"MediaWiki\\Extension\\IdleonTweaks\\": "includes/"
 	},
 	"Hooks": {
-		"BeforePageDisplay": "MediaWiki\\Extension\\CustomTweaks\\Hooks::onBeforePageDisplay"
+		"BeforePageDisplay": "MediaWiki\\Extension\\IdleonTweaks\\Hooks::onBeforePageDisplay"
 	},
 	"manifest_version": 2
 }
