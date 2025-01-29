@@ -1,0 +1,19 @@
+{
+	"name": "IdleonTweaks",
+	"type": "other",
+	"author": "Brendan Jones",
+	"version": "1.0.0",
+	"url": "https://github.com/bmjones92",
+	"description": "Custom tweaks for the IdleOn wiki.",
+	"license-name": "MIT",
+	"requires": {
+		"MediaWiki": ">= 1.43.0"
+	},
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\CustomTweaks\\": "includes/"
+	},
+	"Hooks": {
+		"BeforePageDisplay": "MediaWiki\\Extension\\CustomTweaks\\Hooks::onBeforePageDisplay"
+	},
+	"manifest_version": 2
+}
