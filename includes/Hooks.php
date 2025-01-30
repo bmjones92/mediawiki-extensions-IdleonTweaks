@@ -13,6 +13,7 @@ class Hooks {
 	 * @return void
 	 */
 	public static function onBeforePageDisplay(OutputPage $out, Skin $skin): void {
+        # Inject the theme cookie into the body class if one is present.
 		$theme = $skin->getContext()->getRequest()->getCookie('theme', '');
 		if ($theme) {
 			$out->addBodyClasses('theme-' . $theme);
