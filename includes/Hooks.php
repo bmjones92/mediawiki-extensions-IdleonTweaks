@@ -18,7 +18,6 @@ class Hooks {
 		if ($theme !== null) {
 			$out->addBodyClasses('theme-' . $theme);
 		}
-        $out->addHTML("SERVER THEME: " . $theme);
     }
 
 }
