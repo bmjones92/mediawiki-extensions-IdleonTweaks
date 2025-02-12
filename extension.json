@@ -2,7 +2,7 @@
 	"name": "IdleonTweaks",
 	"type": "other",
 	"author": "Brendan Jones",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"url": "https://github.com/bmjones92/mediawiki-extension-IdleonTweaks",
 	"description": "Custom tweaks for the IdleOn wiki.",
 	"license-name": "MIT",
@@ -13,7 +13,8 @@
 		"MediaWiki\\Extension\\IdleonTweaks\\": "includes/"
 	},
 	"Hooks": {
-		"BeforePageDisplay": "MediaWiki\\Extension\\IdleonTweaks\\Hooks::onBeforePageDisplay"
+		"BeforePageDisplay": "MediaWiki\\Extension\\IdleonTweaks\\Hooks::onBeforePageDisplay",
+		"SkinBuildSidebar": "MediaWiki\\Extension\\IdleonTweaks\\Hooks::onSkinBuildSidebar"
 	},
 	"manifest_version": 2
 }
