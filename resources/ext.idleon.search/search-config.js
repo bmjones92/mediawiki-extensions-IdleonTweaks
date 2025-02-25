@@ -40,7 +40,7 @@ function timeless(searchBox) {
         autofocusInput: searchElement === document.activeElement,
         action: searchForm.getAttribute('action'),
         searchAccessKey: searchForm.getAttribute('accessKey'),
-        searchPageTitle: titleElement.value,
+        searchPageTitle: titleElement && titleElement.value,
         searchTitle: searchElement.getAttribute('title'),
         searchPlaceholder: searchElement.getAttribute('placeholder'),
         searchQuery: searchElement.value,

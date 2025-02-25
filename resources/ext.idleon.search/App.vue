@@ -47,7 +47,7 @@ module.exports = {
      */
     highlightQuery: {
       type: Boolean,
-      default: false
+      default: true
     },
     /**
      * The value to give the search field's id attribute.
@@ -156,14 +156,14 @@ module.exports = {
      * @return {number|null}
      */
     visibleItemLimit() {
-      return client.loadMore ? 7 : null
+      return client.supportsOffsets ? 7 : null
     }
   },
   methods: {
 
     /**
      * Fetch suggestions when new input is received.
-     * @param {string} value
+     * @param {string} value The current search input.
      */
     onInput(value) {
       const query = value.trim()
@@ -177,7 +177,11 @@ module.exports = {
       }
 
       // Update the search results
-      const search = client.fetchByTitle(query, 10, this.showDescription)
+      const search = client.fetchByTitle({
+        query,
+        limit: 10,
+        showDescription: this.showDescription
+      })
       this.updateSearchResults(search, true)
     },
 
@@ -187,6 +191,7 @@ module.exports = {
      * @param {boolean} replaceResults Whether to clear existing results.
      */
     updateSearchResults(search, replaceResults) {
+      // Keep track of the query so we can discard results if the query ends.
       const query = this.currentSearchQuery
 
       search.fetch.then(data => {
@@ -206,6 +211,10 @@ module.exports = {
         // TODO Error handling
       })
     },
+
+    onLoadMore() {
+
+    }
   },
   mounted() {
     if (this.autofocusInput) {
@@ -239,6 +248,7 @@ module.exports = {
       :show-thumbnail="showThumbnail"
       :title="searchTitle"
       :visible-item-limit="visibleItemLimit"
+      @load-more="onLoadMore"
       @blur="isFocused = false"
       @focus="isFocused = true"
       @input="onInput"

@@ -28,6 +28,7 @@
  */
 
 /**
+ * Describes the properties for a search result in the search menu.
  * @typedef SearchResultMenuItem
  * @property {string|number} value Item value or unique identifier.
  * @property {string?} label Display label for the menu item.
@@ -40,44 +41,11 @@
  * @property {boolean?} disabled Whether the result is disabled.
  */
 
-/* Everything after this is iffy */
-
 /**
- * @typedef SearchResultPartial
- * @property {string} title
- * @property {string?} url
- */
-
-/**
- * An event that occurs when a search fetch request completes.
- * @typedef FetchEndEvent
- * @property {number} numResults The number of results that were returned.
- * @property {string} query The search query that produced the results.
- */
-
-/**
- * An event that occurs when a user clicks on a search result.
- * @typedef SuggestionClickEvent
- * @property {number} numResults The number of results that were returned.
- * @property {number} index The index of the clicked result.
- */
-
-/**
- * An event that occurs when a user submits the search form.
- * @typedef {SearchSubmitEvent} SuggestionClickEvent
- */
-
-/**
- * @typedef InstrumentationListeners
- * @property {function(): void} onFetchStart
- * @property {function(FetchEndEvent): void} onFetchEnd
- * @property {function(SuggestionClickEvent): void} onSuggestionClick
- * @property {function(SearchSubmitEvent): void} onSubmit
- */
-
-/**
- * @typedef Instrumentation
- * @property {InstrumentationListeners} listeners
- * @property {function(number): string} getWprovFromResultIndex
- * @property {function(SearchResultPartial[], number): SearchResultPartial[]} addWprovToSearchResultUrls
+ * Describes the optional search parameters which can be passed to the search API.
+ * @typedef SearchRequestParams
+ * @property {string} query The search query.
+ * @property {number?} limit The maximum number of results to return.
+ * @property {number?} offset The number of results to skip before the first result.
+ * @property {boolean?} showDescription Whether results should contain a description.
  */

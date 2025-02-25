@@ -2,15 +2,20 @@ const fetchJson = require('./fetch.js')
 const urlGenerator = require('./url-generator.js')
 
 /**
- * Adapts a search response from the server for use with the search box.
- * @param {string} query The search query that generated the response.
- * @param {SearchResponse} response The response returned from the server.
- * @param {boolean} showDescription Whether to display page descriptions.
- * @return {object}
+ * @typedef AdaptedSearchResponse
+ * @property {SearchRequestParams} request
+ * @property {Array<SearchResultMenuItem>} results
  */
-function adaptResponse(query, response, showDescription) {
+
+/**
+ * Adapts a search response from the server for use with the search box.
+ * @param {SearchRequestParams} request The request parameters that generated the response.
+ * @param {SearchResponse} response The response returned from the server.
+ * @return {AdaptedSearchResponse}
+ */
+function adaptResponse(request, response) {
     const results = response.pages.map((page, index) => {
-        let description = showDescription ? page.description : undefined
+        let description = request.showDescription ? page.description : undefined
 
         // If the page matches because of a redirect, then overwrite the
         // description to display which page it was redirected from.
@@ -29,33 +34,40 @@ function adaptResponse(query, response, showDescription) {
     })
 
     return {
-        query,
+        request,
         results
     }
 }
 
 /**
  * Builds the URL for a search fest request.
- * @param {string} query The search query.
- * @param {number} limit The maximum number of results to return.
+ * @param {SearchRequestParams} params The maximum number of results to return.
  */
-function buildRequestUrl(query, limit) {
-    const restApiUrl = `${mw.config.get('wgScriptPath')}/rest.php`
-    const params = new URLSearchParams({
+function buildRequestUrl({ query, limit }) {
+    const searchParams = new URLSearchParams({
         q: query,
         limit: limit.toString()
     })
-    return `${restApiUrl}/v1/search/title?${params.toString()}`
+
+    const restApiUrl = `${mw.config.get('wgScriptPath')}/rest.php`
+    return `${restApiUrl}/v1/search/title?${searchParams.toString()}`
 }
 
 /**
- * Fetches search results by comparing the page title to the query.
- * @param {string} query The search query.
- * @param {number} limit The maximum number of results to return.
- * @param {boolean} showDescription Whether to display a description.
+ * Fetches search results by comparing the page title to the search query.
+ * @param {SearchRequestParams} params The search request parameters
  */
-function fetchByTitle(query, limit = 10, showDescription = true) {
-    const result = fetchJson(buildRequestUrl(query, limit), {
+function fetchByTitle(params) {
+    // Assign appropriate defaults for missing parameters.
+    params = {
+        limit: 10,
+        offset: 0,
+        showDescription: true,
+        ...params
+    }
+
+    const url = buildRequestUrl(params)
+    const result = fetchJson(url, {
         headers: {
             accept: 'application/json'
         }
@@ -63,10 +75,16 @@ function fetchByTitle(query, limit = 10, showDescription = true) {
 
     return {
         abort: result.abort,
-        fetch: result.fetch.then((res) => adaptResponse(query, res, showDescription))
+        fetch: result.fetch.then((res) => adaptResponse(params, res))
     }
 }
 
+/**
+ * @typedef SearchClient
+ * @property {fetchByTitle} fetchByTitle
+ * @property {boolean} supportsLoadMore Currently unsupported because search API doesn't accept offsets.
+ */
 module.exports = {
-    fetchByTitle
+    fetchByTitle,
+    supportsOffsets: false
 }
