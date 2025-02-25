@@ -20,8 +20,10 @@ class Hooks {
 			$out->addBodyClasses('theme-' . $theme);
 		}
 
-        //
-        $out->addModules([ 'ext.idleon.search' ]);
+        // Only enable enhanced search for select users for testing.
+        if ($out->getUser()->getName() === "Nads") {
+            $out->addModules([ 'ext.idleon.search' ]);
+        }
     }
 
     /**
