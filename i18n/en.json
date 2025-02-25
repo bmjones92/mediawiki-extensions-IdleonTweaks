@@ -1,0 +1,10 @@
+{
+    "@metadata": {
+        "authors": [
+            "Brendan Jones"
+        ]
+    },
+    "idleon-search-redirected-from": "redirected from $1",
+    "idleon-search-footer": "Search for pages containing <strong class=\"cdx-typeahead-search__search-footer__query\">$1</strong>",
+    "idleon-search-loader": "Loading search suggestions"
+}

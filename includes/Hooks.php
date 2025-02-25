@@ -19,6 +19,9 @@ class Hooks {
 		if ($theme !== null) {
 			$out->addBodyClasses('theme-' . $theme);
 		}
+
+        //
+        $out->addModules([ 'ext.idleon.search' ]);
     }
 
     /**

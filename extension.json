@@ -2,7 +2,7 @@
 	"name": "IdleonTweaks",
 	"type": "other",
 	"author": "Brendan Jones",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"url": "https://github.com/bmjones92/mediawiki-extension-IdleonTweaks",
 	"description": "Custom tweaks for the IdleOn wiki.",
 	"license-name": "MIT",
@@ -15,6 +15,39 @@
 	"Hooks": {
 		"BeforePageDisplay": "MediaWiki\\Extension\\IdleonTweaks\\Hooks::onBeforePageDisplay",
 		"SkinBuildSidebar": "MediaWiki\\Extension\\IdleonTweaks\\Hooks::onSkinBuildSidebar"
+	},
+	"MessagesDirs": {
+		"IdleonTweaks": [
+			"i18n"
+		]
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "resources",
+		"remoteExtPath": "IdleonTweaks/resources"
+	},
+	"ResourceModules": {
+		"ext.idleon.search": {
+			"class": "MediaWiki\\ResourceLoader\\CodexModule",
+			"dependencies": [
+				"vue"
+			],
+			"packageFiles": [
+				"ext.idleon.search/index.js",
+				"ext.idleon.search/App.vue",
+				"ext.idleon.search/search-config.js",
+				"ext.idleon.search/fetch.js",
+				"ext.idleon.search/rest-client.js",
+				"ext.idleon.search/url-generator.js"
+			],
+			"codexComponents": [
+				"CdxTypeaheadSearch"
+			],
+			"messages": [
+				"idleon-search-redirected-from",
+				"idleon-search-footer",
+				"idleon-search-loader"
+			]
+		}
 	},
 	"manifest_version": 2
 }
