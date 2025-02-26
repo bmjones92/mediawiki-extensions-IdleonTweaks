@@ -39,7 +39,7 @@ function timeless(searchBox) {
         autocapitalizeValue: searchElement.getAttribute('autocapitalize'),
         autofocusInput: searchElement === document.activeElement,
         action: searchForm.getAttribute('action'),
-        searchAccessKey: searchForm.getAttribute('accessKey'),
+        searchAccessKey: searchElement.getAttribute('accessKey'),
         searchPageTitle: titleElement && titleElement.value,
         searchTitle: searchElement.getAttribute('title'),
         searchPlaceholder: searchElement.getAttribute('placeholder'),
