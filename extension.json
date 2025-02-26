@@ -9,6 +9,12 @@
 	"requires": {
 		"MediaWiki": ">= 1.43.0"
 	},
+	"config": {
+		"IdleonEnableEnhancedSearch": {
+			"value": false,
+			"description": "Whether to enable enhanced search functionality."
+		}
+	},
 	"AutoloadNamespaces": {
 		"MediaWiki\\Extension\\IdleonTweaks\\": "includes/"
 	},

@@ -20,7 +20,9 @@ class Hooks {
 			$out->addBodyClasses('theme-' . $theme);
 		}
 
-        // $out->addModules([ 'ext.idleon.search' ]);
+        if ($out->getConfig()->get('IdleonEnableEnhancedSearch')) {
+            $out->addModules('ext.idleon.search');
+        }
     }
 
     /**
