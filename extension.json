@@ -2,7 +2,7 @@
 	"name": "IdleonTweaks",
 	"type": "other",
 	"author": "Brendan Jones",
-	"version": "1.0.4",
+	"version": "1.1.0",
 	"url": "https://github.com/bmjones92/mediawiki-extension-IdleonTweaks",
 	"description": "Custom tweaks for the IdleOn wiki.",
 	"license-name": "MIT",
@@ -18,9 +18,30 @@
 	"AutoloadNamespaces": {
 		"MediaWiki\\Extension\\IdleonTweaks\\": "includes/"
 	},
+	"callback": "MediaWiki\\Extension\\IdleonTweaks\\Hooks::onRegistration",
+	"HookHandlers": {
+		"theme": {
+			"class": "MediaWiki\\Extension\\IdleonTweaks\\ThemeHooks"
+		},
+		"search": {
+			"class": "MediaWiki\\Extension\\IdleonTweaks\\SearchHooks"
+		},
+		"less": {
+			"class": "MediaWiki\\Extension\\IdleonTweaks\\LessHooks"
+		}
+	},
 	"Hooks": {
-		"BeforePageDisplay": "MediaWiki\\Extension\\IdleonTweaks\\Hooks::onBeforePageDisplay",
-		"SkinBuildSidebar": "MediaWiki\\Extension\\IdleonTweaks\\Hooks::onSkinBuildSidebar"
+		"BeforePageDisplay": [
+			"theme",
+			"search"
+		],
+		"SkinBuildSidebar": "theme",
+		"CodeEditorGetPageLanguage": "less",
+		"ContentHandlerDefaultModelFor": "less",
+		"ParserPreSaveTransformComplete": "less"
+	},
+	"ContentHandlers": {
+		"less": "MediaWiki\\Extension\\IdleonTweaks\\LessCssContentHandler"
 	},
 	"MessagesDirs": {
 		"IdleonTweaks": [
