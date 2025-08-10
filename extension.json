@@ -1,80 +1,83 @@
 {
-	"name": "IdleonTweaks",
-	"type": "other",
-	"author": "Brendan Jones",
-	"version": "1.1.0",
-	"url": "https://github.com/bmjones92/mediawiki-extension-IdleonTweaks",
-	"description": "Custom tweaks for the IdleOn wiki.",
-	"license-name": "MIT",
-	"requires": {
-		"MediaWiki": ">= 1.43.0"
-	},
-	"config": {
-		"IdleonEnableEnhancedSearch": {
-			"value": false,
-			"description": "Whether to enable enhanced search functionality."
-		}
-	},
-	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\IdleonTweaks\\": "includes/"
-	},
-	"callback": "MediaWiki\\Extension\\IdleonTweaks\\Hooks::onRegistration",
-	"HookHandlers": {
-		"theme": {
-			"class": "MediaWiki\\Extension\\IdleonTweaks\\ThemeHooks"
-		},
-		"search": {
-			"class": "MediaWiki\\Extension\\IdleonTweaks\\SearchHooks"
-		},
-		"less": {
-			"class": "MediaWiki\\Extension\\IdleonTweaks\\LessHooks"
-		}
-	},
-	"Hooks": {
-		"BeforePageDisplay": [
-			"theme",
-			"search"
-		],
-		"SkinBuildSidebar": "theme",
-		"CodeEditorGetPageLanguage": "less",
-		"ContentHandlerDefaultModelFor": "less",
-		"ParserPreSaveTransformComplete": "less"
-	},
-	"ContentHandlers": {
-		"less": "MediaWiki\\Extension\\IdleonTweaks\\LessCssContentHandler"
-	},
-	"MessagesDirs": {
-		"IdleonTweaks": [
-			"i18n"
-		]
-	},
-	"ResourceFileModulePaths": {
-		"localBasePath": "resources",
-		"remoteExtPath": "IdleonTweaks/resources"
-	},
-	"ResourceModules": {
-		"ext.idleon.search": {
-			"class": "MediaWiki\\ResourceLoader\\CodexModule",
-			"dependencies": [
-				"vue"
-			],
-			"packageFiles": [
-				"ext.idleon.search/index.js",
-				"ext.idleon.search/App.vue",
-				"ext.idleon.search/search-config.js",
-				"ext.idleon.search/fetch.js",
-				"ext.idleon.search/rest-client.js",
-				"ext.idleon.search/url-generator.js"
-			],
-			"codexComponents": [
-				"CdxTypeaheadSearch"
-			],
-			"messages": [
-				"idleon-search-redirected-from",
-				"idleon-search-footer",
-				"idleon-search-loader"
-			]
-		}
-	},
-	"manifest_version": 2
+    "name": "IdleonTweaks",
+    "type": "other",
+    "author": "Brendan Jones",
+    "version": "1.1.0",
+    "url": "https://github.com/bmjones92/mediawiki-extension-IdleonTweaks",
+    "description": "Custom tweaks for the IdleOn wiki.",
+    "license-name": "MIT",
+    "requires": {
+        "MediaWiki": ">= 1.43.0"
+    },
+    "load_composer_autoloader": true,
+    "config": {
+        "IdleonEnableEnhancedSearch": {
+            "value": false,
+            "description": "Whether to enable enhanced search functionality."
+        },
+        "IdleonMailgunApiKey": {
+            "value": null,
+            "description": "The Mailgun API key for sending email."
+        },
+        "IdleonMailgunUrl": {
+            "value": null,
+            "description": "The Mailgun base URL for sending email."
+        }
+    },
+    "AutoloadNamespaces": {
+        "MediaWiki\\Extension\\IdleonTweaks\\": "includes/"
+    },
+    "HookHandlers": {
+        "theme": {
+            "class": "MediaWiki\\Extension\\IdleonTweaks\\ThemeHooks"
+        },
+        "search": {
+            "class": "MediaWiki\\Extension\\IdleonTweaks\\SearchHooks"
+        },
+        "email": {
+            "class": "MediaWiki\\Extension\\IdleonTweaks\\EmailHooks"
+        }
+    },
+    "Hooks": {
+        "BeforePageDisplay": [
+            "theme",
+            "search"
+        ],
+        "SkinBuildSidebar": "theme",
+        "AlternateUserMailer": "email"
+    },
+    "MessagesDirs": {
+        "IdleonTweaks": [
+            "i18n"
+        ]
+    },
+    "ResourceFileModulePaths": {
+        "localBasePath": "resources",
+        "remoteExtPath": "IdleonTweaks/resources"
+    },
+    "ResourceModules": {
+        "ext.idleon.search": {
+            "class": "MediaWiki\\ResourceLoader\\CodexModule",
+            "dependencies": [
+                "vue"
+            ],
+            "packageFiles": [
+                "ext.idleon.search/index.js",
+                "ext.idleon.search/App.vue",
+                "ext.idleon.search/search-config.js",
+                "ext.idleon.search/fetch.js",
+                "ext.idleon.search/rest-client.js",
+                "ext.idleon.search/url-generator.js"
+            ],
+            "codexComponents": [
+                "CdxTypeaheadSearch"
+            ],
+            "messages": [
+                "idleon-search-redirected-from",
+                "idleon-search-footer",
+                "idleon-search-loader"
+            ]
+        }
+    },
+    "manifest_version": 2
 }
